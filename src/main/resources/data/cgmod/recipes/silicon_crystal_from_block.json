@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "cgmod:silicon_crystal_block"
+    }
+  ],
+  "result": {
+    "item": "cgmod:silicon_crystal",
+    "count": 9
+  }
+}

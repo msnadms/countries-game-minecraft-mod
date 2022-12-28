@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": {"model" : "cgmod:block/base_computer"}
+  }
+}

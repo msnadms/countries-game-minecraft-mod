@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "cgmod:block/silicon_crystal_block"
+  }
+}

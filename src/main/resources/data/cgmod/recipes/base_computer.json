@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RCR",
+    "EEE",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "E": {
+      "item": "cgmod:charged_silicon_chip"
+    },
+    "R": {
+      "item": "minecraft:redstone_lamp"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    }
+  },
+  "result": {
+    "item": "cgmod:base_computer"
+  }
+}

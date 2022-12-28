@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "cgmod:silicon_crystal_ore",
+    "cgmod:silicon_crystal_block"
+  ]
+}
