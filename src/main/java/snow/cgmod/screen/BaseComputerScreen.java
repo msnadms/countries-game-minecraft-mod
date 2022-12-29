@@ -41,4 +41,21 @@ public class BaseComputerScreen extends AbstractContainerScreen<BaseComputerMenu
         super.render(pPoseStack, mouseX, mouseY, delta);
         renderTooltip(pPoseStack, mouseX, mouseY);
     }
+
+    @Override
+    protected void renderLabels(PoseStack pose, int x, int y) {
+        super.renderLabels(pose, x, y);
+        int[] labelData = menu.getDisplayData();
+        if (labelData == null) {
+            labelData = new int[3];
+        }
+        this.font.draw(pose, "Diamonds: " + labelData[0], 74, 20, 0x404040);
+        this.font.draw(pose, "Food: " + labelData[1], 74, 41, 0x404040);
+        this.font.draw(pose, "Structures: " + labelData[2], 74, 62, 0x404040);
+    }
+
+    @Override
+    protected void containerTick() {
+        super.containerTick();
+    }
 }

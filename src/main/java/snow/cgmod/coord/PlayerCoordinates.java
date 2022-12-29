@@ -57,6 +57,14 @@ public class PlayerCoordinates {
         return new BlockPos(arr[0], arr[1], arr[2]);
     }
 
+    public int getLength() {
+        return Math.abs(corner1.getX() - corner2.getX());
+    }
+
+    public int getWidth() {
+        return Math.abs(corner1.getZ() - corner2.getZ());
+    }
+
     public void saveNBTData(CompoundTag nbt) {
         int[] c1Arr = bpToIntArr(corner1);
         int[] c2Arr = bpToIntArr(corner2);

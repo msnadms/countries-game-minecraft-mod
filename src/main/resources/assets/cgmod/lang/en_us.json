@@ -5,5 +5,7 @@
   "block.cgmod.silicon_crystal_ore": "Silicon Ore",
   "item.cgmod.charged_silicon_chip": "Charged Silicon Chip",
   "item.cgmod.claim_stick": "Claim Stick",
-  "block.cgmod.base_computer": "Base Computer"
+  "block.cgmod.base_computer": "Base Computer",
+  "item.cgmod.diamond_alloy": "Diamond Alloy",
+  "item.cgmod.ch_dia_alloy_sword": "Charged Diamond Alloy Sword"
 }

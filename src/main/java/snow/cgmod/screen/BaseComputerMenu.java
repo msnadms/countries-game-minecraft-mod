@@ -9,7 +9,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
-import org.jetbrains.annotations.Nullable;
 import snow.cgmod.block.ModBlocks;
 import snow.cgmod.block.entity.BaseComputerBlockEntity;
 
@@ -24,7 +23,7 @@ public class BaseComputerMenu extends AbstractContainerMenu {
 
     public BaseComputerMenu(int id, Inventory inv, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.BASE_COMP_MENU.get(), id);
-        checkContainerSize(inv, 1);
+        checkContainerSize(inv, 4);
         blockEntity = (BaseComputerBlockEntity) entity;
         this.level = inv.player.level;
         this.data = data;
@@ -34,10 +33,17 @@ public class BaseComputerMenu extends AbstractContainerMenu {
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
             this.addSlot(new SlotItemHandler(handler, 0, 12, 15));
+            this.addSlot(new SlotItemHandler(handler, 1, 48, 15));
+            this.addSlot(new SlotItemHandler(handler, 2, 48, 36));
+            this.addSlot(new SlotItemHandler(handler, 3, 48, 57));
         });
 
         addDataSlots(data);
 
+    }
+
+    public int[] getDisplayData() {
+        return new int[]{data.get(3), data.get(1), data.get(4)};
     }
 
     private static final int HOTBAR_SLOT_COUNT = 9;
@@ -49,7 +55,7 @@ public class BaseComputerMenu extends AbstractContainerMenu {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 1;  // must be the number of slots you have!
+    private static final int TE_INVENTORY_SLOT_COUNT = 4;  // must be the number of slots you have!
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  D",
+    "CD ",
+    "HC "
+  ],
+  "key": {
+    "H": {
+      "item": "cgmod:ch_netherite_handle"
+    },
+    "D": {
+      "item": "cgmod:diamond_alloy"
+    },
+    "C": {
+      "item": "cgmod:charged_silicon_chip"
+    }
+  },
+  "result": {
+    "item": "cgmod:ch_dia_alloy_sword"
+  }
+}

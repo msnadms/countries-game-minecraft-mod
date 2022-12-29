@@ -13,6 +13,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -30,7 +31,7 @@ import java.util.Arrays;
 
 public class BaseComputerBlockEntity extends BlockEntity implements MenuProvider {
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
+    private final ItemStackHandler itemHandler = new ItemStackHandler(4) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -39,7 +40,7 @@ public class BaseComputerBlockEntity extends BlockEntity implements MenuProvider
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
-    protected final ContainerData data;
+    public final ContainerData data;
 
     private int population; // Number of pops
     private int food; // Represents how much food base has, in units of hunger points restored by any food item
@@ -47,6 +48,7 @@ public class BaseComputerBlockEntity extends BlockEntity implements MenuProvider
     private int diamonds; // Diamonds will be used as wealth, impacts happiness
     private int structureBlocks; // Used by pops to build structures
     private int happiness; // How happy the population is, impacts growth speed or decline speed
+    private int cityLevel;
     int[] allArr = new int[]{population, food, water, diamonds, structureBlocks, happiness};
 
     public BaseComputerBlockEntity(BlockPos pos, BlockState state) {
@@ -146,29 +148,25 @@ public class BaseComputerBlockEntity extends BlockEntity implements MenuProvider
             return;
         }
 
-        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
-        for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
-            inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
-        }
-
         ItemStack items = entity.itemHandler.getStackInSlot(0);
         boolean hasValidMaterialInSlot = isValidMaterial(items.getItem());
         if (hasValidMaterialInSlot) {
             entity.addResources(items.getItem(), items.getCount());
             entity.itemHandler.extractItem(0, items.getCount(), false);
             entity.updateArr();
+
             level.players().get(0).sendSystemMessage(Component.literal(Arrays.toString(entity.allArr)));
+
         }
         boolean aroundWater = level.getBlockStates(entity.getRenderBoundingBox().inflate(20)).
-                filter(s -> s.is(Blocks.WATER)).toArray().length > 0;
+                filter(s -> s.is(Blocks.WATER)).toArray().length > 10;
         if (aroundWater) {
             entity.waterAdded();
         } else {
             entity.waterRemoved();
         }
-        entity.decrementAllRandom();
+        entity.tickAllRandom();
         setChanged(level, pos, state);
-
     }
 
     private void loadFromArr(int[] arr) {
@@ -185,7 +183,7 @@ public class BaseComputerBlockEntity extends BlockEntity implements MenuProvider
     }
 
     private void recalculateHappiness() {
-        if (water == 0) {
+        if (water == 0 || food == 0) {
             happiness = 0;
             return;
         }
@@ -195,17 +193,20 @@ public class BaseComputerBlockEntity extends BlockEntity implements MenuProvider
     private void waterAdded() {
         water = 1;
     }
+
     private void waterRemoved() {
         water = 0;
     }
 
-    private void decrementAllRandom() {
+    private void tickAllRandom() {
         int rnd = (int) (20 * 60 * 20 * Math.random());
         if (rnd == 1) {
             diamonds = Math.max(diamonds - 1, 0);
             food = Math.max(food - 20, 0);
             structureBlocks = Math.max(structureBlocks - 32, 0);
             recalculateHappiness();
+            changePopulation();
+        } else if (rnd > 23990) {
             changePopulation();
         }
     }
@@ -226,32 +227,53 @@ public class BaseComputerBlockEntity extends BlockEntity implements MenuProvider
         }
     }
 
-    private <T> void addResources(T resources, int count) {
+    private <T> int addResources(T resources, int count) {
 
+        int itemCat = -1;
         if (resources instanceof Item item) {
             String name = item.toString();
             ItemStack stack = new ItemStack(item);
             if (name.contains("diamond")) {
                 diamonds += count;
+                itemCat = 0;
             } else if (item.isEdible()) {
                 FoodProperties fp = stack.getFoodProperties(null);
                 if (fp != null) {
                     food += (fp.getNutrition() * count);
+                    itemCat = 1;
                 }
             } else if (name.contains("planks")) {
                 structureBlocks += count;
+                itemCat = 2;
             } else if (name.contains("stone") && !name.contains("cobble")) {
                 structureBlocks += (2 * count);
+                itemCat = 2;
             } else if (name.contains("stripped")) {
                 structureBlocks += (3 * count);
+                itemCat = 2;
             } else if (name.contains("concrete") || name.contains("terracotta")) {
                 structureBlocks += (10 * count);
+                itemCat = 2;
             } else {
-                return;
+                return -1;
             }
         }
         recalculateHappiness();
-        changePopulation();
+        return itemCat;
+    }
+
+    private static void assignLevels(BaseComputerBlockEntity entity, Level level) {
+        int bookshelvesInProximityModifier = Math.min(10,
+                level.getBlockStates(entity.getRenderBoundingBox().inflate(20)).
+                        filter(s -> s.is(Blocks.BOOKSHELF)).toArray().length);
+        int schoolLevel = entity.structureBlocks / 128 + bookshelvesInProximityModifier;
+
+
+
+
+
+
+
     }
 
 
