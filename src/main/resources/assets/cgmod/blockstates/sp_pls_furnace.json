@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "cgmod:block/sp_pls_furnace",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "cgmod:block/sp_pls_furnace"
+    },
+    "facing=south": {
+      "model": "cgmod:block/sp_pls_furnace",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "cgmod:block/sp_pls_furnace",
+      "y": 270
+    }
+  }
+}

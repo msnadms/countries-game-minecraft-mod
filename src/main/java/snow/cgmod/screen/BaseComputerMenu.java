@@ -43,7 +43,7 @@ public class BaseComputerMenu extends AbstractContainerMenu {
     }
 
     public int[] getDisplayData() {
-        return new int[]{data.get(3), data.get(1), data.get(4)};
+        return new int[]{data.get(3), data.get(1), data.get(4), data.get(0), data.get(5)};
     }
 
     private static final int HOTBAR_SLOT_COUNT = 9;

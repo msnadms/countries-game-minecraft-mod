@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "cookingtime": 3000,
+  "experience": 5,
+  "ingredient": {
+    "item": "minecraft:blaze_powder"
+  },
+  "result": "cgmod:superheated_plasma"
+}

@@ -5,8 +5,12 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraft.world.level.block.FurnaceBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -14,10 +18,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import snow.cgmod.CountriesGameMod;
 import snow.cgmod.block.custom.BaseComputerBlock;
+import snow.cgmod.block.custom.SpPlasFurnaceBlock;
 import snow.cgmod.item.ModItemGroup;
 import snow.cgmod.item.ModItems;
 
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 public class ModBlocks {
 
@@ -35,6 +41,10 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> BASE_COMP = registerBlock("base_computer",
             () -> new BaseComputerBlock(BlockBehaviour.Properties.of(Material.METAL)),
+            ModItemGroup.COUNTRIES_GROUP);
+
+    public static final RegistryObject<Block> SP_PLS_FURNACE = registerBlock("sp_pls_furnace",
+            () -> new SpPlasFurnaceBlock(BlockBehaviour.Properties.of(Material.STONE).lightLevel((s) -> 13)),
             ModItemGroup.COUNTRIES_GROUP);
 
     public static void register(IEventBus eb) {

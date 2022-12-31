@@ -1,0 +1,19 @@
+{
+  "structures": [
+    {
+      "structure": "cgmod:townhall",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 1642136474,
+
+    "spacing": 50,
+
+    "separation": 10,
+
+    "type": "minecraft:random_spread"
+  },
+  "values": [
+  ]
+}

@@ -47,11 +47,14 @@ public class BaseComputerScreen extends AbstractContainerScreen<BaseComputerMenu
         super.renderLabels(pose, x, y);
         int[] labelData = menu.getDisplayData();
         if (labelData == null) {
-            labelData = new int[3];
+            labelData = new int[5];
         }
-        this.font.draw(pose, "Diamonds: " + labelData[0], 74, 20, 0x404040);
-        this.font.draw(pose, "Food: " + labelData[1], 74, 41, 0x404040);
-        this.font.draw(pose, "Structures: " + labelData[2], 74, 62, 0x404040);
+        this.font.draw(pose, "" + labelData[0], 68, 20, 0x404040);
+        this.font.draw(pose, "" + labelData[1], 68, 41, 0x404040);
+        this.font.draw(pose, "" + labelData[2], 68, 62, 0x404040);
+        this.font.draw(pose, "" + labelData[3], 114, 20, 0x404040);
+        this.font.draw(pose, "" + labelData[4], 114, 41, 0x404040);
+
     }
 
     @Override

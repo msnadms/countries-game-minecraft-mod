@@ -12,6 +12,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -23,6 +24,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import snow.cgmod.block.ModBlocks;
 import snow.cgmod.item.ModItems;
 import snow.cgmod.screen.BaseComputerMenu;
 
@@ -153,6 +155,7 @@ public class BaseComputerBlockEntity extends BlockEntity implements MenuProvider
             return;
         }
         if (entity.firstTick) {
+            entity.updateArr();
             assignLevels(entity, level);
             entity.firstTick = false;
         }
@@ -173,9 +176,16 @@ public class BaseComputerBlockEntity extends BlockEntity implements MenuProvider
         } else {
             entity.waterRemoved();
         }
-        if (entity.tickAllRandom() && entity.forgeLevel >= 2) {
-            entity.itemHandler.setStackInSlot(1, new ItemStack(ModItems.DIAMOND_ALLOY.get(),
-                    entity.itemHandler.getStackInSlot(1).getCount() + entity.forgeLevel / 5));
+        if (entity.tickAllRandom()) {
+            if (entity.forgeLevel >= 10) {
+                entity.itemHandler.setStackInSlot(1, new ItemStack(ModItems.DIAMOND_ALLOY.get(),
+                        entity.itemHandler.getStackInSlot(1).getCount() + entity.forgeLevel / 5));
+                entity.diamonds -= entity.itemHandler.getStackInSlot(1).getCount();
+            }
+            if (entity.schoolLevel >= 5) {
+                entity.itemHandler.setStackInSlot(2, new ItemStack(Items.EXPERIENCE_BOTTLE,
+                        entity.itemHandler.getStackInSlot(1).getCount() + entity.schoolLevel * 2));
+            }
         }
         setChanged(level, pos, state);
     }
@@ -212,16 +222,16 @@ public class BaseComputerBlockEntity extends BlockEntity implements MenuProvider
     private boolean tickAllRandom() {
         int hourModifier = 5;
         int rnd = (int) (20 * 60 * hourModifier * Math.random());
-        int moreRnd = (int) (2 * Math.random());
-        if (rnd == 1) {
+        int moreRnd = (int) (4 * Math.random());
+        if (rnd < 10) {
             diamonds = Math.max(diamonds - 1, 0);
-            food = Math.max(food - 20, 0);
+            food = Math.max(food - 5, 0);
             structureBlocks = Math.max(structureBlocks - 32, 0);
             recalculateHappiness();
             changePopulation();
-        } else if (rnd == 2 && moreRnd == 1) {
+        } else if (rnd == 11 && moreRnd == 1) {
             return true;
-        } else if (rnd > (20 * 60 * hourModifier) - 10) {
+        } else if (rnd > (20 * 60 * hourModifier) - 5) {
             changePopulation();
         }
         return false;
@@ -280,18 +290,15 @@ public class BaseComputerBlockEntity extends BlockEntity implements MenuProvider
         entity.cityLevel = Math.max(1, roundTargetNorm(entity.population, 25, 25));
         // Max school level is 20
         int bookshelvesInProximityModifier = Math.min(10,
-                level.getBlockStates(entity.getRenderBoundingBox().inflate(20 * entity.cityLevel)).
+                level.getBlockStates(entity.getRenderBoundingBox().inflate(Math.pow(entity.cityLevel, 2))).
                         filter(s -> s.is(Blocks.BOOKSHELF)).toArray().length / 5);
         entity.schoolLevel = Math.min(10, roundTargetNorm(entity.structureBlocks, 64, 64 * 3)) +
                 bookshelvesInProximityModifier;
         // Max forge level is 20
         int blastFurnaceModifier = Math.min(10,
-                level.getBlockStates(entity.getRenderBoundingBox().inflate(20 * entity.cityLevel)).
-                        filter(s -> s.is(Blocks.BLAST_FURNACE)).toArray().length / 5);
+                level.getBlockStates(entity.getRenderBoundingBox().inflate(Math.pow(entity.cityLevel, 2))).
+                        filter(s -> s.is(ModBlocks.SP_PLS_FURNACE.get())).toArray().length);
         entity.forgeLevel = Math.min(10, roundTargetNorm(entity.diamonds, 32, 32)) + blastFurnaceModifier;
         // System.out.println("LEVELS: " + entity.cityLevel + " " + bookshelvesInProximityModifier + " " + entity.schoolLevel + " " + blastFurnaceModifier + " " + entity.forgeLevel);
-
     }
-
-
 }

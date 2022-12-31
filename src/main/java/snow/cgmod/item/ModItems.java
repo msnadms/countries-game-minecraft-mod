@@ -1,9 +1,11 @@
 package snow.cgmod.item;
 
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -36,6 +38,9 @@ public class ModItems {
                     new Item.Properties().tab(ModItemGroup.COUNTRIES_GROUP).durability(15000)));
 
     public static final RegistryObject<Item> CHARGED_NETHERITE_HANDLE = ITEMS.register("ch_netherite_handle",
+            () -> new Item(new Item.Properties().tab(ModItemGroup.COUNTRIES_GROUP)));
+
+    public static final RegistryObject<Item> SUPERHEATED_PLASMA = ITEMS.register("superheated_plasma",
             () -> new Item(new Item.Properties().tab(ModItemGroup.COUNTRIES_GROUP)));
 
 
