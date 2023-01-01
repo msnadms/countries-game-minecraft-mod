@@ -19,6 +19,7 @@ import net.minecraftforge.registries.RegistryObject;
 import snow.cgmod.CountriesGameMod;
 import snow.cgmod.block.custom.BaseComputerBlock;
 import snow.cgmod.block.custom.SpPlasFurnaceBlock;
+import snow.cgmod.block.custom.WorkComputerBlock;
 import snow.cgmod.item.ModItemGroup;
 import snow.cgmod.item.ModItems;
 
@@ -45,6 +46,10 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> SP_PLS_FURNACE = registerBlock("sp_pls_furnace",
             () -> new SpPlasFurnaceBlock(BlockBehaviour.Properties.of(Material.STONE).lightLevel((s) -> 13)),
+            ModItemGroup.COUNTRIES_GROUP);
+
+    public static final RegistryObject<Block> WORK_COMP = registerBlock("work_computer",
+            () -> new WorkComputerBlock(BlockBehaviour.Properties.of(Material.METAL)),
             ModItemGroup.COUNTRIES_GROUP);
 
     public static void register(IEventBus eb) {
