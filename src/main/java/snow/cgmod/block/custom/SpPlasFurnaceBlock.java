@@ -3,17 +3,23 @@ package snow.cgmod.block.custom;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
+import snow.cgmod.block.entity.ModBlockEntities;
+import snow.cgmod.block.entity.SpPlasFurnaceBlockEntity;
 
 public class SpPlasFurnaceBlock extends AbstractFurnaceBlock {
 
@@ -24,20 +30,22 @@ public class SpPlasFurnaceBlock extends AbstractFurnaceBlock {
 
     @Override
     protected void openContainer(Level level, BlockPos pos, Player player) {
-
+        BlockEntity entity = level.getBlockEntity(pos);
+        if (entity instanceof SpPlasFurnaceBlockEntity) {
+            player.openMenu((MenuProvider) entity);
+        }
     }
-
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
-        return null;
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new SpPlasFurnaceBlockEntity(pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_153212_, BlockState p_153213_, BlockEntityType<T> p_153214_) {
-        return super.getTicker(p_153212_, p_153213_, p_153214_);
+        return createFurnaceTicker(p_153212_, p_153214_, ModBlockEntities.SP_PLAS_FURNACE.get());
     }
 
     @Override
@@ -59,4 +67,5 @@ public class SpPlasFurnaceBlock extends AbstractFurnaceBlock {
             level.addParticle(ParticleTypes.DRAGON_BREATH, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
             level.addParticle(ParticleTypes.SMOKE, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
     }
+
 }

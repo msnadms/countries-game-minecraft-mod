@@ -29,6 +29,8 @@ import snow.cgmod.item.ModItems;
 import snow.cgmod.networking.ModPackets;
 import snow.cgmod.screen.BaseComputerScreen;
 import snow.cgmod.screen.ModMenuTypes;
+import snow.cgmod.world.feature.ModConfiguredFeatures;
+import snow.cgmod.world.feature.ModPlacedFeatures;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(CountriesGameMod.MODID)
@@ -67,6 +69,10 @@ public class CountriesGameMod
         ModBlockEntities.register(modEventBus);
 
         ModMenuTypes.register(modEventBus);
+
+        ModConfiguredFeatures.register(modEventBus);
+
+        ModPlacedFeatures.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

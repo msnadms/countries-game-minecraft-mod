@@ -17,6 +17,11 @@ public class ModBlockEntities {
                     BlockEntityType.Builder.of(BaseComputerBlockEntity::new,
                             ModBlocks.BASE_COMP.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<SpPlasFurnaceBlockEntity>> SP_PLAS_FURNACE =
+            BLOCK_ENTITIES.register("sp_pls_furnace", () ->
+                    BlockEntityType.Builder.of(SpPlasFurnaceBlockEntity::new,
+                            ModBlocks.SP_PLS_FURNACE.get()).build(null));
+
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

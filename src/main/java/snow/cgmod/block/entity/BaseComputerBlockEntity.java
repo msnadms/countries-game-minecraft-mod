@@ -37,6 +37,15 @@ public class BaseComputerBlockEntity extends BlockEntity implements MenuProvider
         protected void onContentsChanged(int slot) {
             setChanged();
         }
+
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return switch (slot) {
+                case 0 -> BaseComputerBlockEntity.isValidMaterial(stack.getItem());
+                case 1, 2, 3 -> false;
+                default -> super.isItemValid(slot, stack);
+            };
+        }
     };
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
@@ -299,6 +308,6 @@ public class BaseComputerBlockEntity extends BlockEntity implements MenuProvider
                 level.getBlockStates(entity.getRenderBoundingBox().inflate(Math.pow(entity.cityLevel, 2))).
                         filter(s -> s.is(ModBlocks.SP_PLS_FURNACE.get())).toArray().length);
         entity.forgeLevel = Math.min(10, roundTargetNorm(entity.diamonds, 32, 32)) + blastFurnaceModifier;
-        // System.out.println("LEVELS: " + entity.cityLevel + " " + bookshelvesInProximityModifier + " " + entity.schoolLevel + " " + blastFurnaceModifier + " " + entity.forgeLevel);
+
     }
 }
