@@ -8,6 +8,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.WallBannerBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.api.distmarker.Dist;
@@ -29,6 +30,7 @@ import snow.cgmod.item.ModItems;
 import snow.cgmod.networking.ModPackets;
 import snow.cgmod.screen.BaseComputerScreen;
 import snow.cgmod.screen.ModMenuTypes;
+import snow.cgmod.screen.WorkComputerScreen;
 import snow.cgmod.world.feature.ModConfiguredFeatures;
 import snow.cgmod.world.feature.ModPlacedFeatures;
 
@@ -105,6 +107,7 @@ public class CountriesGameMod
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
             MenuScreens.register(ModMenuTypes.BASE_COMP_MENU.get(), BaseComputerScreen::new);
+            MenuScreens.register(ModMenuTypes.WORK_COMP_MENU.get(), WorkComputerScreen::new);
         }
     }
 }
