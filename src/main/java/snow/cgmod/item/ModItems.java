@@ -11,6 +11,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import snow.cgmod.CountriesGameMod;
 import snow.cgmod.item.custom.ClaimStickItem;
+import snow.cgmod.item.custom.UnstableCobaltItem;
 
 public class ModItems {
 
@@ -41,6 +42,12 @@ public class ModItems {
             () -> new Item(new Item.Properties().tab(ModItemGroup.COUNTRIES_GROUP)));
 
     public static final RegistryObject<Item> SUPERHEATED_PLASMA = ITEMS.register("superheated_plasma",
+            () -> new Item(new Item.Properties().tab(ModItemGroup.COUNTRIES_GROUP)));
+
+    public static final RegistryObject<Item> UNSTABLE_COBALT = ITEMS.register("unstable_cobalt",
+            () -> new UnstableCobaltItem(new Item.Properties().tab(ModItemGroup.COUNTRIES_GROUP)));
+
+    public static final RegistryObject<Item> COBALT_ALLOY = ITEMS.register("cobalt_alloy",
             () -> new Item(new Item.Properties().tab(ModItemGroup.COUNTRIES_GROUP)));
 
 

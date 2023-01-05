@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "cgmod:unstable_cobalt"
+    },
+    {
+      "item": "cgmod:silicon_crystal"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    }
+  ],
+  "result": {
+    "item": "cgmod:cobalt_alloy"
+  }
+}
