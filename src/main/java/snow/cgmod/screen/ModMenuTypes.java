@@ -18,6 +18,9 @@ public class ModMenuTypes {
     public static final RegistryObject<MenuType<BaseComputerMenu>> BASE_COMP_MENU =
             registerMenuType(BaseComputerMenu::new, "base_computer_menu");
 
+    public static final RegistryObject<MenuType<WorkComputerMenu>> WORK_COMP_MENU =
+            registerMenuType(WorkComputerMenu::new, "work_computer_menu");
+
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory,
                                                                                                   String name) {
         return MENUS.register(name, () -> IForgeMenuType.create(factory));
