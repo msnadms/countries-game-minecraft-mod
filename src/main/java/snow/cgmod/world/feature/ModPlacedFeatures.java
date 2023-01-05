@@ -17,7 +17,12 @@ public class ModPlacedFeatures {
 
     public static final RegistryObject<PlacedFeature> SILCRYST_ORE_PLACED = PLACED_FEATURES.register("silicon_crystal_ore_placed",
             () -> new PlacedFeature(ModConfiguredFeatures.SILCRYST_ORE.getHolder().get(),
-                    commonOrePlacement(7, // VeinsPerChunk
+                    commonOrePlacement(12, // VeinsPerChunk
+                            HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)))));
+
+    public static final RegistryObject<PlacedFeature> COBALT_ORE_PLACED = PLACED_FEATURES.register("cobalt_ore_placed",
+            () -> new PlacedFeature(ModConfiguredFeatures.COBALT_ORE.getHolder().get(),
+                    commonOrePlacement(12, // VeinsPerChunk
                             HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)))));
 
     public static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {

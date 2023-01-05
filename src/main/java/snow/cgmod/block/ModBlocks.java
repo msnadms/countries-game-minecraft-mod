@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -50,6 +51,11 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> WORK_COMP = registerBlock("work_computer",
             () -> new WorkComputerBlock(BlockBehaviour.Properties.of(Material.METAL)),
+            ModItemGroup.COUNTRIES_GROUP);
+
+    public static final RegistryObject<Block> COBALT_ORE = registerBlock("cobalt_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(6f).requiresCorrectToolForDrops(),
+                    UniformInt.of(3, 7)),
             ModItemGroup.COUNTRIES_GROUP);
 
     public static void register(IEventBus eb) {

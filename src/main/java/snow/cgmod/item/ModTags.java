@@ -9,7 +9,7 @@ import snow.cgmod.CountriesGameMod;
 public class ModTags {
     public static class Blocks {
         public static final TagKey<Block> NEEDS_DIA_ALLOY_TOOL
-                = tag("needs_zircon_tool");
+                = tag("needs_dia_alloy_tool");
 
 
         private static TagKey<Block> tag(String name) {

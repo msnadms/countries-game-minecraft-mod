@@ -27,6 +27,12 @@ public class ModConfiguredFeatures {
     public static final RegistryObject<ConfiguredFeature<?, ?>> SILCRYST_ORE = CONFIGURED_FEATURES.register("silicon_crystal_ore",
             () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(Objects.requireNonNull(OW_SILICON_CRYSTAL_ORE.get()),7)));
 
+    public static final Supplier<List<OreConfiguration.TargetBlockState>> OW_COBALT_ORE = Suppliers.memoize(() -> List.of(
+            OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, ModBlocks.COBALT_ORE.get().defaultBlockState())));
+
+    public static final RegistryObject<ConfiguredFeature<?, ?>> COBALT_ORE = CONFIGURED_FEATURES.register("cobalt_ore",
+            () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(Objects.requireNonNull(OW_COBALT_ORE.get()),7)));
+
     public static void register(IEventBus eb) {
         CONFIGURED_FEATURES.register(eb);
     }
